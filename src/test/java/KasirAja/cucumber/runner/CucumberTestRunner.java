@@ -8,8 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/java/KasirAja/cucumber/resource/features",
         glue = "KasirAja.cucumber.stepDef",
-        plugin = {"html:target/HTML_report.html"},
-        tags = "@negative"
+        plugin = {"html:target/HTML_report.html"}
 )
 public class CucumberTestRunner {
 

@@ -73,4 +73,31 @@ public class Login {
         Assert.assertEquals("Kredensial yang Anda berikan salah", AlertText);
         driver.quit();
     }
+
+    @And("Input (.*) as email$")
+    public void inputEmailAsEmail(String email) {
+        WebElement logininput = driver.findElement(By.xpath("//input[@id='email']"));
+        logininput.sendKeys(email);
+    }
+
+    @And("Input (.*) as password$")
+    public void inputPasswordAsPassword(String password) {
+        WebElement passwordinput = driver.findElement(By.xpath("//input[@id='password']"));
+        passwordinput.sendKeys(password);
+    }
+
+    @Then("I Verify (.*) login result$")
+    public void iVerifyStatusLoginResult(String status) {
+        if (status.equals("success")) {
+            WebElement userfullname = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//dt[normalize-space()='Sel Ventures']")));
+            String loginname = userfullname.getText();
+            System.out.println(loginname);
+            Assert.assertEquals("Sel Ventures", loginname);
+        } else if (status.equals("failed")) {
+            WebElement AlertKredensial = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@role='alert']")));
+            String AlertText = AlertKredensial.getText();
+            Assert.assertEquals("Kredensial yang Anda berikan salah", AlertText);
+        }
+        driver.quit();
+    }
 }
